@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Page</title>
+</head>
+<body>
+<h1>Page</page>
+
+<script type="text/javascript" src="qrc:///qtwebchannel/qwebchannel.js"></script>
+<script>
+
+var webChannel = new QWebChannel(qt.webChannelTransport, function(channel){
+    console.log(channel.myObject);
+});
+
+</script>
+
+</body>
+</html>
