@@ -3,13 +3,13 @@
 <title>Page</title>
 </head>
 <body>
-<h1>Page</page>
+<h1>Page</h1>
 
 <script type="text/javascript" src="qrc:///qtwebchannel/qwebchannel.js"></script>
 <script>
 
 var webChannel = new QWebChannel(qt.webChannelTransport, function(channel){
-    console.log(channel.myObject);
+    window.external = channel.objects.external;
 });
 
 </script>

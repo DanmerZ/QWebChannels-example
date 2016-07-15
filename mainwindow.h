@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "object.h"
+#include <QWebChannel>
+#include <QWebEnginePage>
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +21,14 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    Object o;
+    Object exposedObject;
+    QWebChannel *channel;
+    QWebEnginePage *page;
+
+public slots:
+    void onPageLoadStarted();
+    void onPageLoadProgress(int progress);
+    void onPageLoadFinished();
 };
 
 #endif // MAINWINDOW_H

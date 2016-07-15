@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QWebChannel>
 #include "object.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,20 +10,34 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->webEngineWidget->load(QUrl("qrc:/index.html"));
+    page = ui->webEngineWidget->page();
 
-    ui->webEngineWidget->load(QUrl::fromLocalFile("/Users/oleh/Documents/test/QtProjects/TestWebEngine/index.html"));
+    channel = new QWebChannel;
+    channel->registerObject("external", &exposedObject);
+    page->setWebChannel(channel);
 
-    QWebChannel *channel = new QWebChannel(ui->webEngineWidget->page());
-    channel->registerObject("myObject", &o);
-    ui->webEngineWidget->page()->setWebChannel(channel);
-
-    o.setProperty("info", 5);
-    qDebug() << o.property("info");
-    qDebug() << o.getInfo();
-
+    connect(page, &QWebEnginePage::loadStarted, this, &MainWindow::onPageLoadStarted);
+    connect(page, &QWebEnginePage::loadProgress, this, &MainWindow::onPageLoadProgress);
+    connect(page, &QWebEnginePage::loadFinished, this, &MainWindow::onPageLoadFinished);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onPageLoadStarted()
+{
+    qDebug() << "Loading started";
+}
+
+void MainWindow::onPageLoadProgress(int progress)
+{
+    qDebug() << "Loading in progress: " << progress;
+}
+
+void MainWindow::onPageLoadFinished()
+{
+    qDebug() << "Loading finished";
 }
