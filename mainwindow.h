@@ -5,6 +5,7 @@
 #include "object.h"
 #include <QWebChannel>
 #include <QWebEnginePage>
+#include <QNetworkAccessManager>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,7 @@ private:
     Object exposedObject;
     QWebChannel *channel;
     QWebEnginePage *page;
+    QNetworkAccessManager *manager;
 
 public slots:
     void onPageLoadStarted();

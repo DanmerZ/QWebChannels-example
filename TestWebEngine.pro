@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui webchannel
+QT       += core gui webchannel printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets webenginewidgets
 
@@ -22,7 +22,8 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui
 
 DISTFILES += \
-    index.html
+    index.html \
+    other.html
 
 RESOURCES += \
     res.qrc
